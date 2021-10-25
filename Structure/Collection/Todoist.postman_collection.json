@@ -1,0 +1,2219 @@
+{
+	"info": {
+		"_postman_id": "8850db1e-977c-42e6-ad72-6ee91e563616",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Valid test",
+					"item": [
+						{
+							"name": "Get Projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{todoistProd}}projects",
+									"host": [
+										"{{todoistProd}}projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Project - All the parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"projectId\", jsonData.id);",
+											"",
+											"",
+											"//pm.test(\"Correct name is Returned\", function () {",
+											"  //  pm.expect(jsonData.name).to.eql(environment.projectName);",
+											"//});",
+											"pm.test(\"Correct color Is Returned\", function () {",
+											"    pm.expect(jsonData.color).to.eql(parseInt(environment.color));",
+											"});",
+											"pm.test(\"Correct favorite status Is Returned\", function () {",
+											"    pm.expect(jsonData.favorite).to.eql(Boolean(environment.favorite));",
+											"});",
+											"",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"color\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"name\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"shared\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"favorite\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"sync_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});",
+											"",
+											"pm.variables.set(\"projectName\",  \"\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const date = new Date();",
+											"let today = date.toLocaleDateString()",
+											"pm.variables.set(\"projectName\",  \"Christmas party - last updated: \"+today);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectName}}\",\n    \"color\": {{color}},\n    \"favorite\": {{favorite}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}projects",
+									"host": [
+										"{{todoistProd}}projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"color\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"name\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"shared\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"favorite\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"sync_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{todoistProd}}projects/{{projectId}}",
+									"host": [
+										"{{todoistProd}}projects"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Project - Name and Favorite parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"//Edit the variables values before sending the request",
+											"let today = new Date().toLocaleDateString()",
+											"pm.variables.set(\"projectName\", pm.variables.get(\"projectName\") + \" - last updated: \"+today);",
+											"pm.variables.set(\"favorite\", \"false\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectName}}\",\n    \"favorite\": {{favorite}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}projects/{{projectId}}",
+									"host": [
+										"{{todoistProd}}projects"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{todoistProd}}projects/{{projectId}}",
+									"host": [
+										"{{todoistProd}}projects"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative test",
+					"item": [
+						{
+							"name": "Add",
+							"item": [
+								{
+									"name": "Add Project - Missing name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Empty name message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Name must be provided for the project creation\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"\",\n    \"color\": {{color}},\n    \"favorite\": {{favorite}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}projects",
+											"host": [
+												"{{todoistProd}}projects"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Update",
+							"item": [
+								{
+									"name": "Add Project Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();",
+													"pm.environment.set(\"projectId\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const date = new Date();",
+													"let today = date.toLocaleDateString()",
+													"pm.variables.set(\"projectName\",  \"To Do - last updated: \"+today);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"{{projectName}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}projects",
+											"host": [
+												"{{todoistProd}}projects"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Project - Empty name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Wrong favorite value type message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Empty name\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"\",\n    \"color\": {{color}},\n    \"favorite\": \"false\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}projects/{{projectId}}",
+											"host": [
+												"{{todoistProd}}projects"
+											],
+											"path": [
+												"{{projectId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Project Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{todoistProd}}projects/{{projectId}}",
+											"host": [
+												"{{todoistProd}}projects"
+											],
+											"path": [
+												"{{projectId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get",
+							"item": [
+								{
+									"name": "Get Project not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{todoistProd}}projects/234",
+											"host": [
+												"{{todoistProd}}projects"
+											],
+											"path": [
+												"234"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete",
+							"item": [
+								{
+									"name": "Delete Project - Invalid Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(500);",
+													"});",
+													"pm.test(\"Wrong color valie type message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Internal Server Error\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{todoistProd}}projects/223d",
+											"host": [
+												"{{todoistProd}}projects"
+											],
+											"path": [
+												"223d"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Valid test",
+					"item": [
+						{
+							"name": "Get Task List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{todoistProd}}tasks",
+									"host": [
+										"{{todoistProd}}tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Project - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"projectId\", jsonData.id);",
+											"",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"",
+											"",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"color\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"name\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"shared\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"favorite\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        \"sync_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const date = new Date();",
+											"let today = date.toLocaleDateString()",
+											"pm.variables.set(\"projectName\",  \"Christmas party - last updated: \"+today);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectName}}\",\n    \"color\": {{color}},\n    \"favorite\": {{favorite}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}projects",
+									"host": [
+										"{{todoistProd}}projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Task - Content/description/project/order/priority",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"taskId\", jsonData.id);",
+											"",
+											"",
+											"pm.test(\"Correct projectId is Returned\", function () {",
+											"    pm.expect(jsonData.projectId).to.eql(environment.project_Id);",
+											"});",
+											"pm.test(\"Correct order is Returned\", function () {",
+											"    pm.expect(jsonData.order).to.eql(parseInt(environment.order));",
+											"});",
+											"pm.test(\"Correct content is Returned\", function () {",
+											"    pm.expect(jsonData.content).to.eql(environment.content);",
+											"});",
+											"pm.test(\"Correct description Is Returned\", function () {",
+											"    pm.expect(jsonData.description).to.eql(environment.description);",
+											"});",
+											"pm.test(\"Correct priority Is Returned\", function () {",
+											"    pm.expect(jsonData.priority).to.eql(parseInt(environment.priority));",
+											"});",
+											"",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"assigner\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"project_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"section_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"content\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"description\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"completed\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"        //\"label_ids\" : {",
+											"        //    \"type\": \"integer\"",
+											"       // },",
+											"        \"priority\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"creator\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"created\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"       ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"{{content}}\",\n    \"description\": \"{{description}}\",\n    \"project_id\": {{projectId}},\n    \"order\": {{order}},\n    \"priority\": {{priority}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks",
+									"host": [
+										"{{todoistProd}}tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Task - Content/Due_String",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"taskId\", jsonData.id);",
+											"",
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"",
+											"pm.test(\"Correct content is Returned\", function () {",
+											"    pm.expect(jsonData.content).to.eql(environment.content);",
+											"});",
+											"pm.test(\"Correct dueString is Returned\", function () {",
+											"    pm.expect(jsonData.due.string).to.eql(environment.dueString);",
+											"});",
+											"",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"assigner\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"project_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"section_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"content\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"description\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"completed\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"       // \"label_ids\" : {",
+											"          //  \"type\": \"[]\"",
+											"        //},",
+											"        \"priority\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"creator\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"created\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"       ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"{{content}}\",\n    \"due_string\": \"{{dueString}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks",
+									"host": [
+										"{{todoistProd}}tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Content-Type is application/json\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\"),\"application/json; charset=utf-8\";",
+											"});",
+											"const schema = {",
+											"    \"type\" : \"object\",",
+											"    \"properties\" : {",
+											"        \"id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"assigner\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"project_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"section_id\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"order\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"content\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"description\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"completed\" : {",
+											"            \"type\": \"boolean\"",
+											"        },",
+											"       // \"label_ids\" : {",
+											"          //  \"type\": \"[]\"",
+											"        //},",
+											"        \"priority\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"comment_count\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"creator\" : {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"created\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"        \"url\" : {",
+											"            \"type\": \"string\"",
+											"        },",
+											"       ",
+											"    }",
+											"}",
+											"",
+											"pm.test(\"Validating schema\",()=> {",
+											"pm.response.to.have.jsonSchema(schema);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Task -Description/priority/due_datetime",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const date = new Date();",
+											"",
+											"//Edit description",
+											"let today = date.toLocaleDateString()",
+											"pm.variables.set(\"description\", pm.variables.get(\"description\") + \" - last updated: \"+today);",
+											"",
+											"//Generate a priority between 1 and 4",
+											"const randomPriority =Math.floor(Math.random() * 4) + 1;",
+											"pm.variables.set(\"priority\", randomPriority);",
+											"",
+											"//Generate a date, two days after the update time",
+											"const twoDaysFromNow = date.setDate(date.getDate() + 2);",
+											"const dateFormat = new Date(twoDaysFromNow);",
+											"const newDueDate =dateFormat.toISOString();",
+											"pm.variables.set(\"dueDateTime\", newDueDate);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"{{description}}\",\n    \"priority\": {{priority}},\n    \"due_datetime\": \"{{dueDateTime}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Task - Content/Due_Date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const date = new Date();",
+											"",
+											"//Edit description",
+											"let today = date.toLocaleDateString()",
+											"pm.variables.set(\"content\", pm.variables.get(\"content\") + \" - last updated: \"+today);",
+											"",
+											"//Generate a priority between 0 and 3",
+											"let dueStringsDate = ['today', 'tomorrow','next week','next month']",
+											"const randomPriority =Math.floor(Math.random() * 4) + 0;",
+											"pm.variables.set(\"dueString\", dueStringsDate[randomPriority]);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"{{content}}\",\n    \"due_string\": \"{{dueString}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Close Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}/close",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}",
+										"close"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reopen Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}/reopen",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}",
+										"reopen"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{todoistProd}}tasks/{{taskId}}",
+									"host": [
+										"{{todoistProd}}tasks"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{todoistProd}}projects/{{projectId}}",
+									"host": [
+										"{{todoistProd}}projects"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative test",
+					"item": [
+						{
+							"name": "Add",
+							"item": [
+								{
+									"name": "Add Task - Missing content",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Empty content message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Empty content\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"description\": \"{{description}}\",\n    \"project_id\": {{projectId}},\n    \"order\": {{order}},\n    \"priority\": {{priority}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks",
+											"host": [
+												"{{todoistProd}}tasks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Task - String as Project id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Wrong project id message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"unexpected string\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"content\": \"{{content}}\",\n    \"due_string\": \"{{dueString}}\",\n    \"project_id\": \"myProject\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks",
+											"host": [
+												"{{todoistProd}}tasks"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Update",
+							"item": [
+								{
+									"name": "Add Task - Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();",
+													"pm.environment.set(\"taskId\", jsonData.id);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"content\": \"{{content}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks",
+											"host": [
+												"{{todoistProd}}tasks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Task - Item does not exists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Item not found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Item not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"description\": \"{{description}}\",\n    \"priority\": {{priority}},\n    \"due_datetime\": \"2030-12-19T16:39:57-08:00\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/123",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"123"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Task - wrong due string",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Date is invalid message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Date is invalid\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"description\": \"{{description}}\",\n    \"priority\": {{priority}},\n    \"due_string\": \"Hoy\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/{{taskId}}",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"{{taskId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Task -wrong Due_Datetime",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"due_date invalid message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"due_date not in YYYY-MM-DD format\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"content\": \"{{content}}\",\n    \"due_date\": \"2030/12/19 \"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/{{taskId}}",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"{{taskId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Task",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{todoistProd}}tasks/{{taskId}}",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"{{taskId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get",
+							"item": [
+								{
+									"name": "Get Task Not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{todoistProd}}tasks/123",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"123"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Close",
+							"item": [
+								{
+									"name": "Close task - wrong id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/12a2/close",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"12a2",
+												"close"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Close task - empty id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/close",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"close"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Reopen",
+							"item": [
+								{
+									"name": "Reopen task - wrong id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/12a12s/reopen",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"12a12s",
+												"reopen"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete task - empty id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/reopen",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"reopen"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete",
+							"item": [
+								{
+									"name": "Delete task - wrong id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"Item not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/12",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete task - empty id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Not Found message is returned\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{todoistProd}}tasks/",
+											"host": [
+												"{{todoistProd}}tasks"
+											],
+											"path": [
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 1200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});"
+				]
+			}
+		}
+	]
+}
