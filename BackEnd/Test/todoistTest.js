@@ -6,7 +6,7 @@ newman.run({
     reporters: 'html',
     reporter: {
         html: {
-            export: './Reporter/htmlResults.html',
+            export: './Reporter/suteResults.html',
         }
     }
 }, function (err) {
