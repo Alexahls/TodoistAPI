@@ -26,7 +26,7 @@ Frameworks and libraries used:
 - [x] NPM installed
 	
 ### Installation
-- Clone the repository : https://github.com/Alexahls/TodoistAutomatedSolution
+- Clone the repository : https://github.com/Alexahls/TodoistAPI
 - Create package.json :
   ```
   npm init
@@ -44,17 +44,17 @@ Frameworks and libraries used:
   2. Click on settings
   3. Go to Integrations, scroll down, API token section is displayed
 
-- Add your token to the enviroment variables: 
-  1. Open the environmet file
+- Add your token to the Environment variables: 
+  1. Open the Environment file
   2. Search for "key": "token"
-  3. In the value paste your token and save the file.
+  3. In "value" value,  paste your token and save the file.
 
 
 	   
 Description:  
 - BackEnd:
 	* Collection : Here you can  find the collection file where the api requests are saved. 
-	* Enviroment : The file where all the data used by the request is saved.
+	* Environment : The file where all the data used by the request is saved.
 	* Test: File with the information required to run the api request
 - Reporter: here the reports with the status of the test cases executed are saved in html format (open it using any browser).
 
