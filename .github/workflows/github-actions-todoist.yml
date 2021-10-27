@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: Build notification
-      if: always()
       uses: cidqatest1/simple-slack-notify@main
       with:
         channel: '#todoist-api'
