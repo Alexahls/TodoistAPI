@@ -11,3 +11,5 @@ jobs:
         with:
           node-version: '14.x'
       - run : npm run todoistTest
+      - env:
+          token: '275dc2c4f4f776fcc819ea50d21c4f6a7e7871f8'
