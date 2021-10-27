@@ -1,7 +1,9 @@
 name: Integration
 
 on: [push, pull_request]
-
+env:
+  GITHUB_TOKEN: ${{ secrets.GB_TOKEN }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 jobs:
   API_Testing:
     runs-on: ubuntu-latest
@@ -15,15 +17,14 @@ jobs:
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Slack Notification
-      uses: cidqatest1/action-slack-notify@v2
-      env:
-        env:
-        SLACK_CHANNEL: todoist-api
-        SLACK_COLOR: #ff00ff
-        SLACK_ICON: https://github.com/rtCamp.png?size=48
-        SLACK_MESSAGE: 'Post Content :rocket:'
-        SLACK_TITLE: Post Title
-        SLACK_USERNAME: cidqatest1
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+     - name: Build notification
+      if: always()
+      uses: cidqatest1/simple-slack-notify@main
+      with:
+        channel: '#todoist-api'
+        status: ${{ job.status }}
+        success_text: 'Build (#${env.GITHUB_RUN_NUMBER}) completed successfully'
+        failure_text: 'Build (#${env.GITHUB_RUN_NUMBER}) failed'
+        cancelled_text: 'Build (#${env.GITHUB_RUN_NUMBER}) was cancelled'
+        fields: |
+          [{ "title": "Action URL", "value": "${env.GITHUB_SERVER_URL}/${env.GITHUB_REPOSITORY}/actions/runs/${env.GITHUB_RUN_ID}"}]
