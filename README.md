@@ -15,7 +15,6 @@ Frameworks and libraries used:
 * NPM
 * Postman
 * Newman
-* Newman-reporter-html
 	
 	
 <!-- GETTING STARTED -->
