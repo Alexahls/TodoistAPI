@@ -1901,11 +1901,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 404\", function () {",
-													"    pm.response.to.have.status(404);",
-													"});",
-													"pm.test(\"Not Found message is returned\", function () {",
-													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"pm.test(\"Status code is 500\", function () {",
+													"    pm.response.to.have.status(500);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2001,11 +1998,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 404\", function () {",
-													"    pm.response.to.have.status(404);",
-													"});",
-													"pm.test(\"Not Found message is returned\", function () {",
-													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"pm.test(\"Status code is 500\", function () {",
+													"    pm.response.to.have.status(500);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2101,11 +2095,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
-													"});",
-													"pm.test(\"Not Found message is returned\", function () {",
-													"    pm.expect(pm.response.text()).to.include(\"Item not found\");",
+													"pm.test(\"Status code is 500\", function () {",
+													"    pm.response.to.have.status(500);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2130,12 +2121,12 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{todoistProd}}tasks/12",
+											"raw": "{{todoistProd}}tasks/12abc",
 											"host": [
 												"{{todoistProd}}tasks"
 											],
 											"path": [
-												"12"
+												"12abc"
 											]
 										}
 									},
@@ -2148,11 +2139,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 404\", function () {",
-													"    pm.response.to.have.status(404);",
-													"});",
-													"pm.test(\"Not Found message is returned\", function () {",
-													"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+													"pm.test(\"Status code is 405\", function () {",
+													"    pm.response.to.have.status(405);",
 													"});"
 												],
 												"type": "text/javascript"
