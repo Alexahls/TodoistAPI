@@ -11,3 +11,19 @@ jobs:
         with:
           node-version: '14.x'
       - run : npm run todoistTest
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: cidqatest1/action-slack-notify@v2
+      env:
+        env:
+        SLACK_CHANNEL: todoist-api
+        SLACK_COLOR: #ff00ff
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_MESSAGE: 'Post Content :rocket:'
+        SLACK_TITLE: Post Title
+        SLACK_USERNAME: cidqatest1
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
