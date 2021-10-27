@@ -1,15 +1,23 @@
 {
   "name": "todoistapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "![image](https://user-images.githubusercontent.com/92478365/138358383-120b04b1-77ce-4380-9a05-3bf2c15bf4eb.png) <!-- ABOUT THE PROJECT --> ## TODOIST API <!-- ABOUT THE PROJECT --> ## About The Project Todoist is the simple yet powerful to-do list app that will help organize life and work.",
   "main": "index.js",
   "scripts": {
-    "todoistTest": "node  ./BackEnd/Test/todoistTest.js"
+    "todoistTest": "newman run './BackEnd/Collection/Todoist.postman_collection.json' -e './BackEnd/Environment/Todoist.postman_environment.json'"
   },
   "author": "Alexa Lopez",
   "license": "ISC",
   "dependencies": {
     "newman": "^5.3.0",
     "newman-reporter-html": "^1.0.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexahls/TodoistAPI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alexahls/TodoistAPI/issues"
+  },
+  "homepage": "https://github.com/Alexahls/TodoistAPI#readme"
 }
