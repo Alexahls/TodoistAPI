@@ -27,17 +27,9 @@ Frameworks and libraries used:
 	
 ### Installation
 - Clone the repository : https://github.com/Alexahls/TodoistAPI
-- Create package.json :
-  ```
-  npm init
-  ```
 - Install Newman using the terminal
 	 ```
 	npm install newman
-	```
-- Install Reporter using the terminal
-	```
-	npm i newman-reporter-html
 	```
 - Create a todoist account and get the token:
   1. After you create your account -> go to your profile icon at top right
@@ -55,8 +47,6 @@ Description:
 - BackEnd:
 	* Collection : Here you can  find the collection file where the api requests are saved. 
 	* Environment : The file where all the data used by the request is saved.
-	* Test: File with the information required to run the api request
-- Reporter: here the reports with the status of the test cases executed are saved in html format (open it using any browser).
 
 Requests structure:  
 - Todoist:
