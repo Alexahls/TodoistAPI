@@ -22,8 +22,8 @@ jobs:
       status: ${{job.status}}
       author_name: ${{github.acthor}}
     steps:
-     - uses: actions/checkout@v2
-     - name: Slack Notification
-       uses: rtCamp/action-slack-notify@v2
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
