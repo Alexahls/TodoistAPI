@@ -23,6 +23,9 @@ jobs:
     - name: Slack Success Notification
       uses: rtCamp/action-slack-notify@v2
     env:
+      SLACK_MESSAGE: 'All the todoist test cases passed successfully'
+      SLACK_TITLE: Test Success
+      SLACK_USERNAME: testBot
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  
   falure_Notification:
     needs: API_Testing
@@ -34,4 +37,7 @@ jobs:
     - name: Slack Failure Notification
       uses: rtCamp/action-slack-notify@v2
     env:
+      SLACK_MESSAGE: 'Some test cases failed, please check the console logs'
+      SLACK_TITLE: Test Failure
+      SLACK_USERNAME: testBot
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
