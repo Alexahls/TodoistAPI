@@ -26,12 +26,12 @@ jobs:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  
   falure_Notification:
     needs: API_Testing
-    name: Slack Falure Notification
+    name: Slack Failure Notification
     runs-on: ubuntu-latest
-    if: faliure()
+    if: failure()
     steps:
     - uses: actions/checkout@v2
-    - name: Slack Falure Notification
+    - name: Slack Failure Notification
       uses: rtCamp/action-slack-notify@v2
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
