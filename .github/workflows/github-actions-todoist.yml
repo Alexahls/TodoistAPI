@@ -26,7 +26,7 @@ jobs:
       SLACK_MESSAGE: 'All the todoist test cases passed successfully'
       SLACK_TITLE: Test Success
       SLACK_USERNAME: testBot
-      SLACK_ICON: https://image.shutterstock.com/image-vector/bot-icon-robot-logotype-flat-260nw-1497911912.jpg
+      SLACK_ICON: https://github.com/22a/slack-github-emoji/raw/master/png/check-passed.png
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  
   falure_Notification:
     needs: API_Testing
