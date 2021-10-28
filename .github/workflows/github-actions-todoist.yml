@@ -17,13 +17,10 @@ jobs:
     needs: API_Testing
     name: Slack Notification
     runs-on: ubuntu-latest
+    if: failure()
     steps:
     - uses: actions/checkout@v2
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
-      if: success()
-      with: 
-        status: ${{job.status}}
-        author_name: ${{github.acthor}}
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
