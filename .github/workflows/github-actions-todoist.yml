@@ -43,3 +43,4 @@ jobs:
       SLACK_USERNAME: testBot
       SLACK_COLOR: '#ff0000'
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      
