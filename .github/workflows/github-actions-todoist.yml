@@ -13,12 +13,12 @@ jobs:
         with:
           node-version: '14.x'
       - run : npm run todoistTest
-  slackNotification:
+   slackNotification:
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Slack Notification
-      uses: cidqatest1/todoist-api@v2
+      uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
