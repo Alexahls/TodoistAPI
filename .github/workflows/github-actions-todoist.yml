@@ -14,19 +14,19 @@ jobs:
           node-version: '14.x'
       - run : npm run todoistTest
       - name: notify of failure
-      if: ${{ failure() }}
-      uses: actions/checkout@v2
-      env:
-        INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-      with:
-        text: XXX Build failed - Deploy - Server - TEST - Azure Web Apps CI/CD. XXX
-    - name: notify of success
-      if: ${{ success() }}
-     uses: actions/checkout@v2
-      env:
-        INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-      with:
-        text: ":heavy_check_mark: Build success - Deploy -  Server - TEST - Azure Web pps CI/CD. :heavy_check_mark:"
+        if: ${{ failure() }}
+        uses: actions/checkout@v2
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          text: XXX Build failed - Deploy - Server - TEST - Azure Web Apps CI/CD. XXX
+      - name: notify of success
+        if: ${{ success() }}
+        uses: actions/checkout@v2
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          text: ":heavy_check_mark: Build success - Deploy -  Server - TEST - Azure Web pps CI/CD. :heavy_check_mark:"
   slackNotification:
     needs: API_Testing
     name: Slack Notification
