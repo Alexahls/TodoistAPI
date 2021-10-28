@@ -26,6 +26,7 @@ jobs:
       SLACK_MESSAGE: 'All the todoist test cases passed successfully'
       SLACK_TITLE: Test Success
       SLACK_USERNAME: testBot
+      SLACK_ICON: https://image.shutterstock.com/image-vector/bot-icon-robot-logotype-flat-260nw-1497911912.jpg
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  
   falure_Notification:
     needs: API_Testing
@@ -40,4 +41,5 @@ jobs:
       SLACK_MESSAGE: 'Some test cases failed, please check the console logs'
       SLACK_TITLE: Test Failure
       SLACK_USERNAME: testBot
+      SLACK_ICON: https://pbs.twimg.com/profile_images/345070313/men_t_robot_med_400x400.png
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
