@@ -24,7 +24,7 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-    if: faliure()
+    else: faliure()
     steps:
     - uses: actions/checkout@v2
     - name: Slack Falure Notification
