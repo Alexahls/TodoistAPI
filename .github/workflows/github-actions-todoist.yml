@@ -26,8 +26,7 @@ jobs:
       SLACK_MESSAGE: 'All the todoist test cases passed successfully'
       SLACK_TITLE: Test Success
       SLACK_USERNAME: testBot
-      SLACK_ICON: https://github.com/rtCamp.png?size=48
-      SLACK_COLOR: '#ff00ff'
+      SLACK_COLOR: '#00ff00'
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  
   falure_Notification:
     needs: API_Testing
@@ -42,6 +41,5 @@ jobs:
       SLACK_MESSAGE: 'Some test cases failed, please check the console logs'
       SLACK_TITLE: Test Failure
       SLACK_USERNAME: testBot
-      SLACK_ICON: https://github.com/rtCamp.png?size=48
       SLACK_COLOR: '#ff0000'
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
