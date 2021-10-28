@@ -19,6 +19,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Slack Notification
-      uses: cidqatest1/action-slack-notify@v2
+      uses: cidqatest1/todoist-api@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
