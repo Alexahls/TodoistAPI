@@ -17,7 +17,7 @@ jobs:
     needs: API_Testing
     name: Slack Notification
     runs-on: ubuntu-latest
-    if: sucess()
+    if: success()
     steps:
     - uses: actions/checkout@v2
     - name: Slack Notification
