@@ -15,7 +15,7 @@ jobs:
       - run : npm run todoistTest
   success_Notification:
     needs: API_Testing
-    name: Slack Success Notification
+    name: Slack Notification
     runs-on: ubuntu-latest
     if: success()
     steps:
@@ -24,10 +24,6 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-  falure_Notification:
-    needs: API_Testing
-    name: Slack Falure Notification
-    runs-on: ubuntu-latest
     if: faliure()
     steps:
     - uses: actions/checkout@v2
@@ -35,3 +31,5 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
     env:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+    
