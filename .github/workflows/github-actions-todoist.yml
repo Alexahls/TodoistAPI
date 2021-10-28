@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '14.x'
       - run : npm run todoistTest
-   slackNotification:
+  slackNotification:
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
