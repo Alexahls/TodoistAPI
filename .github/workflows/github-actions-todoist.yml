@@ -17,23 +17,10 @@ jobs:
     needs: API_Testing
     name: Slack Notification
     runs-on: ubuntu-latest
-    if: always() # set always
-    steps:
-        # run this action to get workflow conclusion
-        # You can get conclusion by env (env.WORKFLOW_CONCLUSION)
+    if: success()
+      steps:
       - uses: actions/checkout@v2
-      - uses: rtCamp/action-slack-notify@v2
-        with:
-          # status: ${{ env.WORKFLOW_CONCLUSION }} # neutral, success, cancelled, timed_out, failure
-          status: failure
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-        if: env.WORKFLOW_CONCLUSION == 'failure' # notify only if failure
-
-#    steps:
- #   - uses: actions/checkout@v2
-  #  - name: Slack Notification
-   #   uses: rtCamp/action-slack-notify@v2
-    #  env:
-     #   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
